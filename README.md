@@ -1,3 +1,46 @@
 # StreamdataDemo
 
 Just a demo of the Elixir streamdata module. It implements the first example from https://propertesting.com/book_stateless_properties.html in Elixir.
+
+# Example run
+
+```
+$ mix test
+Compiling 1 file (.ex)
+GENERATED LIST: [-1]
+GENERATED LIST: [1, -1]
+GENERATED LIST: [-2]
+GENERATED LIST: [-3]
+GENERATED LIST: [3, -1, 1, 1, 3]
+GENERATED LIST: [-1, 1, 1, 3]
+GENERATED LIST: [1, 1, 3]
+GENERATED LIST: [1, 3]
+GENERATED LIST: [1, 3]
+GENERATED LIST: [1, 1]
+GENERATED LIST: [1]
+GENERATED LIST: [1]
+
+
+  1) property Find biggest number in list (StreamdataDemoTest)
+     test/streamdata_demo_test.exs:5
+     ** (ExUnitProperties.Error) failed with generated values (after 4 successful run(s)):
+
+     list <- nonempty(list_of(integer()))
+     #=> [1, 1]
+
+         ** (FunctionClauseError) no function clause matching in StreamdataDemo.biggest/2
+     code: check all list <- nonempty(list_of(integer())) do
+     stacktrace:
+       (streamdata_demo) lib/streamdata_demo.ex:3: StreamdataDemo.biggest([1], 1)
+       test/streamdata_demo_test.exs:8: anonymous fn/2 in StreamdataDemoTest."property Find biggest number in list"/1
+       (stream_data) lib/stream_data.ex:1974: StreamData.shrink_failure/6
+       (stream_data) lib/stream_data.ex:1938: StreamData.check_all/6
+       test/streamdata_demo_test.exs:6: (test)
+
+
+
+Finished in 0.07 seconds
+1 property, 1 failure
+
+Randomized with seed 219726
+```
